@@ -19,7 +19,7 @@ SELECT
     mobile_app_install,
     likes,
     inline_link_clicks,
-    (clicks + likes + comments + shares + views) AS engagements,
+    (clicks + likes + comments + shares + views + add_to_cart) AS engagements,
     ROUND(CASE WHEN clicks > 0 THEN purchase / clicks
             ELSE 0
         END, 2) AS post_click_conversions,
