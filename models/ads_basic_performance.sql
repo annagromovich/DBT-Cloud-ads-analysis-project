@@ -15,7 +15,8 @@ twitter_data AS (
     FROM {{ ref('src_promoted_tweets_twitter_all_data') }} 
 )
 
-SELECT CAST(ad_id AS STRING) AS ad_id,
+SELECT 
+    CAST(ad_id AS STRING) AS ad_id,
     add_to_cart,
     CAST(adset_id AS STRING) AS adset_id,
     CAST(campaign_id AS STRING) AS campaign_id,
@@ -30,7 +31,7 @@ SELECT CAST(ad_id AS STRING) AS ad_id,
     likes,
     inline_link_clicks AS link_clicks,
     CAST(NULL AS STRING) AS placement_id,
-    CAST(post_click_conversions AS INT64) AS post_click_conversions,
+    CAST(CASE WHEN clicks > 0 THEN conv/clicks ELSE 0 END AS INT64) AS post_click_conversions,
     CAST(post_view_conversions AS INT64) AS post_view_conversions,
     NULL AS posts,
     purchase,
@@ -44,7 +45,8 @@ FROM facebook_data
 
 UNION ALL
 
-SELECT CAST(ad_id AS STRING) AS ad_id,
+SELECT 
+    CAST(ad_id AS STRING) AS ad_id,
     NULL AS add_to_cart,
     CAST(adset_id AS STRING) AS adset_id,
     CAST(campaign_id AS STRING) AS campaign_id,
@@ -73,7 +75,8 @@ FROM bing_data
 
 UNION ALL
 
-SELECT CAST(ad_id AS STRING) AS ad_id,
+SELECT 
+    CAST(ad_id AS STRING) AS ad_id,
     add_to_cart,
     CAST(adgroup_id AS STRING) AS adset_id,
     CAST(campaign_id AS STRING) AS campaign_id,
@@ -89,7 +92,7 @@ SELECT CAST(ad_id AS STRING) AS ad_id,
     NULL AS link_clicks,
     CAST(NULL AS STRING) AS placement_id,
     CAST(CASE WHEN clicks > 0 THEN (conversions + COALESCE(skan_conversion, 0))/clicks ELSE 0 END AS INT64) AS post_click_conversions,
-    CAST(CASE WHEN video_views > 0 THEN (conversions + COALESCE(skan_conversion, 0))/video_views ELSE 0 END AS INT 64) AS post_view_conversions,
+    CAST(CASE WHEN video_views > 0 THEN (conversions + COALESCE(skan_conversion, 0))/video_views ELSE 0 END AS INT64) AS post_view_conversions,
     NULL AS posts,
     purchase,
     registrations,
@@ -102,7 +105,8 @@ FROM tiktok_data
 
 UNION ALL
 
-SELECT CAST(campaign_id AS STRING) AS ad_id,
+SELECT 
+    CAST(campaign_id AS STRING) AS ad_id,
     NULL AS add_to_cart,
     CAST(NULL AS STRING) AS adset_id,
     CAST(campaign_id AS STRING) AS campaign_id,
@@ -128,4 +132,5 @@ SELECT CAST(campaign_id AS STRING) AS ad_id,
     NULL AS total_conversions,
     video_total_views AS video_views
 FROM twitter_data
+
 
