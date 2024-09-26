@@ -31,7 +31,7 @@ SELECT
     likes,
     inline_link_clicks AS link_clicks,
     CAST(NULL AS STRING) AS placement_id,
-    CAST(CASE WHEN clicks > 0 THEN conv/clicks ELSE 0 END AS INT64) AS post_click_conversions,
+    CAST(post_click_conversions AS INT64) AS post_click_conversions,
     CAST(post_view_conversions AS INT64) AS post_view_conversions,
     NULL AS posts,
     purchase,
