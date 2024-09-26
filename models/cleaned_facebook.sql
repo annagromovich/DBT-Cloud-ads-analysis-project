@@ -5,7 +5,8 @@ with raw_data as (
     from {{ ref('src_ads_creative_facebook_all_data') }}  
 )
 
-select ad_id,
+SELECT 
+    ad_id,
     add_to_cart,
     adset_id,
     campaign_id,
@@ -15,13 +16,14 @@ select ad_id,
     creative_id,
     date,
     impressions,
-    mobile_app_install AS installs,
+    mobile_app_install,
     likes,
-    inline_link_clicks AS link_clicks,
-    ROUND(CASE WHEN clicks > 0 THEN purchase/clicks
+    inline_link_clicks,
+    (clicks + likes + comments + shares + views) AS engagements,
+    ROUND(CASE WHEN clicks > 0 THEN purchase / clicks
             ELSE 0
         END, 2) AS post_click_conversions,
-    ROUND(CASE WHEN views > 0 THEN purchase/views
+    ROUND(CASE WHEN views > 0 THEN purchase / views
             ELSE 0
         END, 2) AS post_view_conversions,
     purchase,
