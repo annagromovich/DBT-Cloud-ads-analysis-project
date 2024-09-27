@@ -2,7 +2,7 @@
 	Welcome to Marketing common data modelling challenge!
 
  ## My results
-     You may review my final model in the models folder and here is the link to the recreated dashboard: https://lookerstudio.google.com/reporting/a9c93ba6-44cd-4b93-af74-c1a9f743490f 
+You may review my final model in the models folder and here is the link to the recreated dashboard: https://lookerstudio.google.com/reporting/a9c93ba6-44cd-4b93-af74-c1a9f743490f 
 
 ## Task
 	We use map data from various ad platforms into a single one. it can help marketers with questions like: "Where clicks better on facebook or tiktok?"
